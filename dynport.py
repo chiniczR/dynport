@@ -1,5 +1,5 @@
 # Author: Rebeca Chinicz
-# Utility for importing a whole file's content (data) directly into a DynamoDB table '''
+# Description: Utility for importing a whole file's content (data) directly into a DynamoDB table
 
 # Import python libraries
 import pandas as pd
