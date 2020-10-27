@@ -27,14 +27,29 @@ args = parser.parse_args()
 
 # Import data
 dataset = None
+
 if args.ftype == 'csv':
     try:
         dataset = pd.read_csv(args.infile[0], encoding='utf-8')
-        dataset = dataset.rename(columns=lambda x: x.strip()) # Trim whitespace from column names
-        for col in dataset.columns:
-            dataset[col] = dataset[col].astype(str)
     except:
         sys.exit(f'Error: {sys.exc_info()[1]}')
+elif args.ftype == 'excel':
+    try:
+        dataset = pd.read_excel(args.infile[0])
+    except:
+        sys.exit(f'Error: {sys.exc_info()[1]}')
+elif args.ftype == 'json':
+    try:
+        dataset = pd.read_json(args.infile[0], encoding='utf-8')
+    except:
+        sys.exit(f'Error: {sys.exc_info()[1]}')
+
+try:
+    dataset = dataset.rename(columns=lambda x: x.strip()) # Trim whitespace from column names
+    for col in dataset.columns:
+        dataset[col] = dataset[col].astype(str)
+except:
+    sys.exit(f'Error: {sys.exc_info()[1]}')
 
 print('File has been read. Going to import:')
 
