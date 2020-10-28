@@ -3,10 +3,12 @@
 
 # Import python libraries
 import pandas as pd
+import numpy as np
 import boto3
 import argparse
 import sys
 from tqdm import tqdm 
+from decimal import Decimal
 
 # Parse the necessary arguments
 parser = argparse.ArgumentParser(prog='dynport', description='Import data from file to DynamoDB.')
@@ -43,11 +45,20 @@ elif args.ftype == 'json':
         dataset = pd.read_json(args.infile[0], encoding='utf-8')
     except:
         sys.exit(f'Error: {sys.exc_info()[1]}')
+elif args.ftype == 'parquet':
+    try:
+        dataset = pd.read_parquet(args.infile[0])
+    except:
+        sys.exit(f'Error: {sys.exc_info()[1]}')
 
 try:
     dataset = dataset.rename(columns=lambda x: x.strip()) # Trim whitespace from column names
     for col in dataset.columns:
-        dataset[col] = dataset[col].astype(str)
+        if 'datetime' in str(dataset[col].dtype):   # Convert datetime types to string
+            dataset[col] = dataset[col].astype(str)
+        elif 'float' in str(dataset[col].dtype):    # Cast floats as Decimals
+            dataset[col].fillna(0, inplace=True)
+            dataset[col] = dataset[col].apply(lambda x: Decimal(str(x)))
 except:
     sys.exit(f'Error: {sys.exc_info()[1]}')
 
