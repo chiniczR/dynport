@@ -1,4 +1,4 @@
-*.csv
-*.json
-*.xls
-*.parquet
+p*.csv
+*.lock
+*cfg
+setup.py
