@@ -25,18 +25,18 @@ dynport.py [-h] [--ftype [FILE-TYPE]] FILE AWS-ACCESS-KEY AWS-SECRET-KEY AWS-REG
 
 - **CSV**
 
-1. Create a DynamoDB table called Grades, in the US West 1 region, with primary key **_SSN_**, of string type
+1. Create a DynamoDB table called **_Grades_**, in the US West 1 region, with primary key **_SSN_**, of string type
 
-> *FOR MORE INFO VISIT: [Getting Started with DynamoDB - Step 1: Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html)*
+  *FOR MORE INFO VISIT: [Getting Started with DynamoDB - Step 1: Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html)*
 
 2. Use dynport to import the data in [grades.csv](./test-data/grades.csv)
 ```
-dynport.py ./test-data/grades.csv <AWS-ACCESS-KEY> <AWS-SECRET-KEY> us-west-1 Users
+dynport.py ./test-data/grades.csv <AWS-ACCESS-KEY> <AWS-SECRET-KEY> us-west-1 Grades
 ```
 
 - **Parquet**
 
-1. Create a DynamoDB table called Users, in the US West 1 region, with primary key **_id_**, of numeric type
+1. Create a DynamoDB table called **_Users_**, in the US West 1 region, with primary key **_id_**, of numeric type
 
 2. Use dynport to import the data in [userdata1.parquet](./test-data/userdata1.parquet)
 ```
